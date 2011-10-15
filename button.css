@@ -2,12 +2,13 @@
     line-height:24px;
     height:24px;
 }
+
 .headerLayout .likes-block {
     text-align:right;
     padding:50px 0 0;
 }
+
 .like {
-    background:url(./images/likes-bg.png) no-repeat 100% 0;
     display:inline-block;
     height:24px;
     line-height:24px;
@@ -17,41 +18,49 @@
     min-width:29px;
     vertical-align:top;
     text-align:center;
-    padding:0 0 0 9px;
-    margin-right:14px;
+    padding:0;
 }
+
 .likes-block .like:first-child {
     margin-left:10px;
 }
+
 .like .l-ico {
     width:24px;
     height:24px;
     position:absolute;
     top:0;
     left:-12px;
-    background-image:url(./images/likes-ico.png);
+    background-image:url("./images/likes-ico.png");
     background-repeat:no-repeat;
 }
+
 .l-fb .l-ico {
     background-position:0 0;
 }
-.l-fb .l-ico iframe {
-    opacity:0;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
-}
+
 .l-vk .l-ico {
     background-position:-29px 0;
 }
+
 .l-tw .l-ico {
     background-position:-58px 0;
 }
+
 .like .count {
     vertical-align:middle;
     line-height:24px;
 }
+
 .light-likes .like {
     background-position:100% -26px;
     color:#000;
+}
+
+.like.like-not-empty {
+    background: url("./images/likes-bg.png") no-repeat 100% 0;
+    margin-right:14px;
+    padding:0 0 0 9px;
 }
 
 

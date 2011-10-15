@@ -3,6 +3,14 @@
     <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="button.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="./buttons.js"></script>
+	
+	<script type="text/javascript">
+	    jQuery(document).ready(function($) {
+		$('.likes-block .like').socialButton();
+	    });
+	</script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
@@ -16,19 +24,19 @@
 
 	    <!-- LIKES -->
 	    <div class="likes-block">
-		<a href="#" class="like l-fb">
+		<a href="http://ya.ru" class="like l-fb">
 		    <i class="l-ico"></i>
-		    <span class="count"></span>
+		    <span class="l-count"></span>
 		</a>
 
-		<a href="#" class="like l-vk">
+		<a href="http://ya.ru" class="like l-vk">
 		    <i class="l-ico"></i>
-		    <span class="count"></span>
+		    <span class="l-count"></span>
 		</a>
 
-		<a href="#" class="like l-tw">
+		<a href="http://ya.ru" class="like l-tw">
 		    <i class="l-ico"></i>
-		    <span class="count"></span>
+		    <span class="l-count"></span>
 		</a>
 	    </div>
 	    <!-- /LIKES -->
