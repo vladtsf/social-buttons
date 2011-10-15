@@ -29,8 +29,9 @@
     
     Button.prototype = {
 	/*@methods*/
-	init: function($context, conf) {
+	init: function($context, conf, index) {
 	    this.config = conf;
+	    this.index = index;
 	    
 	    this.$context = $context;
 	    this.$count = $(this.config.selectors.count, this.$context);
@@ -57,16 +58,18 @@
 	
 	setCountValue: function(count) {
 	    this
-		.$count
-		.text(count);
-		
-	    this
 		.$context
 		.addClass(this.config.classes.countVisibleClass);
+		
+	    this
+		.$count
+		.text(count);
 	},
 	
 	getShareLink: function() {},
-	getCountLink: function() {},
+	getCountLink: function(url) {
+	    return this.countServiceUrl + encodeURIComponent(url);
+	},
 	openShareWindow: function(e) {},
 	countLikes: function() {},
 	
@@ -91,8 +94,8 @@
     
     
     
-    var FacebookButton = function($context, conf) {
-	this.init($context, conf);
+    var FacebookButton = function($context, conf, index) {
+	this.init($context, conf, index);
     };
     FacebookButton.prototype = new Button;
     FacebookButton.prototype
@@ -128,32 +131,58 @@
     
     
     
-    var TwitterButton = function($context, conf) {
-	this.init($context, conf);
+    var TwitterButton = function($context, conf, index) {
+	this.init($context, conf, index);
     };
     TwitterButton.prototype = new Button;
     TwitterButton.prototype
 	= $.extend(TwitterButton.prototype,
     {
 	/*@methods*/
+	countLikes: function() {
+	    var
+		serviceURI = this.getCountLink(this.linkToShare),
+		execContext = this;
+	    
+	    $.ajax({
+		url: serviceURI,
+		dataType: 'jsonp',
+		success: function(data, status, jqXHR) {
+		    if(status == 'success' & data.count > 0) {
+			execContext.setCountValue(data.count)
+		    }
+		}
+	    });
+	},
 	
 	/*@properties*/
+	countServiceUrl: 'http://urls.api.twitter.com/1/urls/count.json?url='
     });
     
     
     
-    var VkontakteButton = function($context, conf) {
-	this.init($context, conf);
+    var VkontakteButton = function($context, conf, index) {
+	this.init($context, conf, index);
     };
     VkontakteButton.prototype = new Button;
     VkontakteButton.prototype
 	= $.extend(VkontakteButton.prototype,
     {
 	/*@methods*/
+	countLikes: function() {
+	    var	serviceURI = this.getCountLink(this.linkToShare) + '&index=' + this.index;
+	    
+	    w.socialButtonCountObjects[this.index] = this;
+	    
+	    $.ajax({
+		url: serviceURI,
+		dataType: 'jsonp'
+	    });
+	},
 	
 	/*@properties*/
+	countServiceUrl: 'http://vkontakte.ru/share.php?act=count&url='
     });
-    
     
     
     
@@ -167,11 +196,11 @@
 		b = false;
 
 	    if($element.is(conf.selectors.facebookButton)) {
-		b = new FacebookButton($element, conf);
+		b = new FacebookButton($element, conf, index);
 	    } else if($element.is(conf.selectors.twitterButton)) {
-		b = new TwitterButton($element, conf);
+		b = new TwitterButton($element, conf, index);
 	    } else if($element.is(conf.selectors.vkontakteButton)) {
-		b = new VkontakteButton($element, conf);
+		b = new VkontakteButton($element, conf, index);
 	    }
 
 	});
@@ -179,4 +208,29 @@
 	return this;
     };
     
+    // костыль для Вконтакте
+    w.socialButtonCountObjects = [];
+    
+    if(!w.VK) {
+	w.VK = {
+	    Share: {
+		count: function(index, count) {
+		    var button = w.socialButtonCountObjects[index];
+		    button.setCountValue(count);
+		    w.socialButtonCountObjects.splice(index, index);
+		}
+	    }
+	}
+    } else {
+	var originalVkCount = w.VK.Share.count;
+	
+	w.VK.Share.count = function(index, count) {
+	    var button = w.socialButtonCountObjects[index];
+	    button.setCountValue(count);
+	    w.socialButtonCountObjects.splice(index, index);
+	    
+	    originalVkCount.call(w.VK.Share, index, count);
+	};
+    }
+        
 })(jQuery, window, document);
