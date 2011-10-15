@@ -66,10 +66,15 @@
 		.text(count);
 	},
 	
-	getShareLink: function() {},
 	getCountLink: function(url) {
 	    return this.countServiceUrl + encodeURIComponent(url);
 	},
+	
+	getShareInfo: function() {
+	    
+	},
+	
+	getShareLink: function() {},
 	openShareWindow: function(e) {},
 	countLikes: function() {},
 	
