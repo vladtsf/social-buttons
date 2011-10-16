@@ -238,6 +238,12 @@
 	    });
 	},
 	
+	getShareLink: function() { 
+	    return 'https://twitter.com/share'
+		    + '?url=' + encodeURIComponent(this.linkToShare)
+		    + (this.summary ? '&text=' + encodeURIComponent(this.title) : '');
+	},
+	
 	/*@properties*/
 	countServiceUrl: 'http://urls.api.twitter.com/1/urls/count.json?url='
     });
@@ -261,6 +267,14 @@
 		url: serviceURI,
 		dataType: 'jsonp'
 	    });
+	},
+	
+	getShareLink: function() { 
+	    return 'http://vkontakte.ru/share.php?'
+		    + 'url=' + encodeURIComponent(this.linkToShare)
+		    + (this.summary ? '&description=' + encodeURIComponent(this.summary) : '')
+		    + '&title=' + encodeURIComponent(this.title)
+		    + '&image=' + encodeURIComponent(this.images[0]);
 	},
 	
 	/*@properties*/
