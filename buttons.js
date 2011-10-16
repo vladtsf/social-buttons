@@ -20,7 +20,18 @@
 	
 	keys: {
 	    shareLinkParam: 'href'
-	}
+	},
+	
+	popupWindowOptions: [
+	    'left=0',
+	    'top=0',
+	    'width=500',
+	    'height=250',
+	    'personalbar=0',
+	    'toolbar=0',
+	    'scrollbars=1',
+	    'resizable=1'
+	]
     };
     
     
@@ -74,8 +85,25 @@
 	    
 	},
 	
+	getPopupOptions: function() {
+	    return this.config.popupWindowOptions.join(',');
+	},
+	
+	openShareWindow: function(e) {
+	    var
+		button = e.data,
+		shareUri = button.getShareLink(),
+		windowOptions = button.getPopupOptions();
+	    
+	    var 
+		newWindow = w.open(shareUri, '', windowOptions);
+
+	    if (w.focus) {
+		    newWindow.focus()
+	    }
+	},
+	
 	getShareLink: function() {},
-	openShareWindow: function(e) {},
 	countLikes: function() {},
 	
     
