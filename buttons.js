@@ -129,6 +129,7 @@
 		this.summary = $summary.text();
 	    }
 	    
+	    this.images = [];
 	    if($images.length > 0) {
 		$images.each(function(index, element) {
 		    button.images[index] = element.src;
