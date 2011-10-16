@@ -1,0 +1,1 @@
+Пример к [этому](https://github.com/vtsvang/social-buttons/) проекту
