@@ -50,6 +50,7 @@
 .like .l-count {
     vertical-align:middle;
     line-height:24px;
+    cursor: default;
 }
 
 .light-likes .like {

@@ -306,7 +306,7 @@
     };
     
     // костыль для Вконтакте
-    w.socialButtonCountObjects = [];
+    w.socialButtonCountObjects = {};
     
     if(!w.VK) {
 	w.VK = {
@@ -314,7 +314,7 @@
 		count: function(index, count) {
 		    var button = w.socialButtonCountObjects[index];
 		    button.setCountValue(count);
-		    w.socialButtonCountObjects.splice(index, index);
+		    delete w.socialButtonCountObjects[index];
 		}
 	    }
 	}
@@ -324,7 +324,7 @@
 	w.VK.Share.count = function(index, count) {
 	    var button = w.socialButtonCountObjects[index];
 	    button.setCountValue(count);
-	    w.socialButtonCountObjects.splice(index, index);
+	    delete w.socialButtonCountObjects[index];
 	    
 	    originalVkCount.call(w.VK.Share, index, count);
 	};
