@@ -116,7 +116,7 @@
 	    var href = this.$context.attr(this.config.keys.shareLinkParam);
 	    
 	    this.linkToShare = href;
-	    if(href.indexOf('http://') == -1 | href.indexOf('https://') == -1) {
+	    if(href.indexOf('http://') == -1 & href.indexOf('https://') == -1) {
 		this.linkToShare
 		    = (href[0] == '/' ? w.location.origin + href : w.location.origin + w.location.pathname + href);
 	    }
@@ -160,10 +160,6 @@
 	    }
 	},
 	
-	getShareLink: function() {},
-	countLikes: function() {}, //delete
-	
-    
 	/*@properties*/
 	linkToShare: null,
 	title: d.title,
@@ -313,13 +309,19 @@
     // костыль для Вконтакте
     w.socialButtonCountObjects = {};
     
+    function vkShare(index, count) {
+	var button = w.socialButtonCountObjects[index];
+	if(count > 0) {
+	    button.setCountValue(count);
+	}
+	delete w.socialButtonCountObjects[index];
+    }
+    
     if(!w.VK) {
 	w.VK = {
 	    Share: {
 		count: function(index, count) {
-		    var button = w.socialButtonCountObjects[index];
-		    button.setCountValue(count);
-		    delete w.socialButtonCountObjects[index];
+		    vkShare(index, count);
 		}
 	    }
 	}
@@ -327,10 +329,7 @@
 	var originalVkCount = w.VK.Share.count;
 	
 	w.VK.Share.count = function(index, count) {
-	    var button = w.socialButtonCountObjects[index];
-	    button.setCountValue(count);
-	    delete w.socialButtonCountObjects[index];
-	    
+	    vkShare(index, count);
 	    originalVkCount.call(w.VK.Share, index, count);
 	};
     }

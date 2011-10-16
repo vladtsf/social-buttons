@@ -77,8 +77,16 @@ a.like {
 
 /*********************************************************/
 
+body {
+    background: #000;
+}
+
 .event-container {
     width: 500px;
+}
+
+.event-container {
+    color: #fff;
 }
 
 .event-image {
