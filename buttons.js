@@ -11,8 +11,14 @@
 	    vkontakteButton: '.l-vk',
 	    
 	    count: '.l-count',
-	    ico: '.l-ico'
+	    ico: '.l-ico',
+	    
+	    shareTitle: 'h2:eq(0)',
+	    shareSumary: 'p:eq(0)',
+	    shareImages: 'img[src]'
 	},
+	
+	buttonDepth: 2,
 	
 	classes: {
 	    countVisibleClass: 'like-not-empty'
@@ -48,10 +54,7 @@
 	    this.$count = $(this.config.selectors.count, this.$context);
 	    this.$ico = $(this.config.selectors.ico, this.$context);
 	    
-	    this.linkToShare
-		= this.$context.attr(this.config.keys.shareLinkParam);
-	    this.$context.attr(this.config.keys.shareLinkParam, '');
-	    
+	    this.collectShareInfo();
 	    this.bindEvents();
 	    this.countLikes();
 	},
@@ -81,8 +84,36 @@
 	    return this.countServiceUrl + encodeURIComponent(url);
 	},
 	
-	getShareInfo: function() {
+	collectShareInfo: function() {
+	    var
+		$parent = this.$context,
+		button = this;
 	    
+	    for(var i = 0; i < this.config.buttonDepth; i++) {
+		$parent = $parent.parent();
+	    }
+	    
+	    this.linkToShare
+		= this.$context.attr(this.config.keys.shareLinkParam);
+	    
+	    var 
+		$title = $(this.config.selectors.shareTitle, $parent),
+		$summary = $(this.config.selectors.shareSumary, $parent),
+		$images = $(this.config.selectors.shareImages, $parent);
+		
+	    if($title.length > 0) {
+		this.title = $title.text();
+	    }
+	    
+	    if($summary.length > 0) {
+		this.summary = $summary.text();
+	    }
+	    
+	    if($images.length > 0) {
+		$images.each(function(index, element) {
+		    button.images[index] = element.src;
+		});
+	    }
 	},
 	
 	getPopupOptions: function() {
@@ -98,17 +129,21 @@
 	    var 
 		newWindow = w.open(shareUri, '', windowOptions);
 
-	    if (w.focus) {
-		    newWindow.focus()
+	    if(w.focus) {
+		newWindow.focus()
 	    }
 	},
 	
 	getShareLink: function() {},
-	countLikes: function() {},
+	countLikes: function() {}, //delete
 	
     
 	/*@properties*/
 	linkToShare: null,
+	title: d.title,
+	summary: null,
+	images: [],
+	
 	countServiceUrl: null,
 	$context: null,
 	$count: null,
@@ -156,6 +191,21 @@
 	getCountLink: function(url) {
 	    var fql = 'SELECT share_count FROM link_stat WHERE url="' + url + '"';
 	    return this.countServiceUrl + encodeURIComponent(fql);
+	},
+	
+	getShareLink: function() {
+	    var images = '';
+	    
+	    for(var i in this.images) {
+		images += ('&p[images][' + i +']=' + encodeURIComponent(this.images[i]));
+	    }
+	    
+	    return 'http://www.facebook.com/sharer/sharer.php?'
+		+ 's=' + 100
+		+ '&p[url]=' + encodeURIComponent(this.linkToShare)
+		+ (this.summary ? '&p[summary]=' + encodeURIComponent(this.summary) : '')
+		+ '&p[title]=' + encodeURIComponent(this.title)
+		+ (images ? images : '');
 	},
 	
 	/*@properties*/
