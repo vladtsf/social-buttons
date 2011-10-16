@@ -8,14 +8,16 @@
 	
 	<script type="text/javascript">
 	    jQuery(document).ready(function($) {
-		$('.likes-block .like').socialButton();
+		$('.likes-block .like')
+		    .socialButton()
+		    .scrollToButton('hash', 1000);
 	    });
 	</script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
 	
-	<div class="event-container">
+	<div class="event-container" id="event_1">
 	    <h2>Первый игрок стоимостью свыше $100 млн</h2>
 	    <img class="event-image" src="http://www.sports.ru/derby/skin/images/pioneers/p20.png">
 	    <div class="summary">
@@ -44,7 +46,7 @@
 	    <!-- /LIKES -->
 	</div>
 	
-	<div class="event-container">
+	<div class="event-container" id="event_2">
 	    <h2>Первый футболист, забивший три гола в одном матче разным вратарям</h2>
 	    <img class="event-image" src="http://www.sports.ru/derby/skin/images/pioneers/p14.png">
 	    <div class="summary">

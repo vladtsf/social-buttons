@@ -1,5 +1,25 @@
 (function($, w, d, undefined) {
     
+    function getParam(key) {
+	if(key) {
+	    var pairs
+		= top.location.search.replace(/^\?/, '').split('&');
+
+	    for(var i in pairs) {
+		var current = pairs[i];
+
+		var match = current.match(/([^=]*)=(\w*)/);
+
+		if(match[1] === key) {
+		    return decodeURIComponent(match[2]);
+		}
+	    }
+	}
+	
+	return false;
+    }
+    
+    
     var ButtonConfiguration = function(params) {
 	return $.extend(ButtonConfiguration.defaults, params);
     }
@@ -284,27 +304,6 @@
     
     
     
-    
-    $.fn.socialButton = function(config) {
-	this.each(function(index, element) {
-	    var
-		$element = $(element),
-		conf = new ButtonConfiguration(config),
-		b = false;
-
-	    if($element.is(conf.selectors.facebookButton)) {
-		b = new FacebookButton($element, conf, index);
-	    } else if($element.is(conf.selectors.twitterButton)) {
-		b = new TwitterButton($element, conf, index);
-	    } else if($element.is(conf.selectors.vkontakteButton)) {
-		b = new VkontakteButton($element, conf, index);
-	    }
-
-	});
-	
-	return this;
-    };
-    
     // костыль для Вконтакте
     w.socialButtonCountObjects = {};
     
@@ -329,5 +328,48 @@
 	    originalVkCount.call(w.VK.Share, index, count);
 	};
     }
+    
+    
+    
+    
+    $.fn.socialButton = function(config) {
+	this.each(function(index, element) {
+	    var
+		$element = $(element),
+		conf = new ButtonConfiguration(config),
+		b = false;
+
+	    if($element.is(conf.selectors.facebookButton)) {
+		b = new FacebookButton($element, conf, index);
+	    } else if($element.is(conf.selectors.twitterButton)) {
+		b = new TwitterButton($element, conf, index);
+	    } else if($element.is(conf.selectors.vkontakteButton)) {
+		b = new VkontakteButton($element, conf, index);
+	    }
+
+	});
+	
+	return this;
+    };
+    
+    $.fn.scrollToButton = function(hashParam, duration) {	
+	if(!w.location.hash) {
+	    if(w.location.search) {
+		var currentHash = getParam(hashParam);
+		if(currentHash) {
+		    var $to = $('#' + currentHash);
+		    if($to.length > 0) {
+			$('html,body')
+			    .animate({
+				scrollTop: $to.offset().top,
+				scrollLeft: $to.offset().left
+			    }, duration || 1000);
+		    }
+		}
+	    }
+	}
+	
+	return this;
+    };
         
 })(jQuery, window, document);
