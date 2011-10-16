@@ -113,8 +113,13 @@
 		$parent = $parent.parent();
 	    }
 	    
-	    this.linkToShare
-		= this.$context.attr(this.config.keys.shareLinkParam);
+	    var href = this.$context.attr(this.config.keys.shareLinkParam);
+	    
+	    this.linkToShare = href;
+	    if(href.indexOf('http://') == -1 | href.indexOf('https://') == -1) {
+		this.linkToShare
+		    = (href[0] == '/' ? w.location.origin + href : w.location.origin + w.location.pathname + href);
+	    }
 	    
 	    var 
 		$title = $(this.config.selectors.shareTitle, $parent),
