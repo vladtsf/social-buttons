@@ -1,11 +1,8 @@
 .likes-block {
     line-height:24px;
     height:24px;
-}
-
-.headerLayout .likes-block {
     text-align:right;
-    padding:50px 0 0;
+    margin-bottom: 30px;
 }
 
 .like {
@@ -53,11 +50,6 @@
     cursor: default;
 }
 
-.light-likes .like {
-    background-position:100% -26px;
-    color:#000;
-}
-
 .like.like-not-empty {
     background: url("./images/likes-bg.png") no-repeat 100% 0;
     margin-right:14px;
@@ -66,30 +58,4 @@
 
 a.like {
     text-decoration: none;
-}
-
-
-
-
-
-
-
-
-/*********************************************************/
-
-body {
-    background: #000;
-}
-
-.event-container {
-    width: 500px;
-}
-
-.event-container {
-    color: #fff;
-}
-
-.event-image {
-    float: left;
-    padding: 5px;
 }

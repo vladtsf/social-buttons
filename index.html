@@ -6,6 +6,29 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script type="text/javascript" src="./buttons.js"></script>
 	
+	<style type="text/css">
+	    body {
+		background: #000;
+	    }
+
+	    .events {
+		width: 600px;
+		margin: 0 auto;
+	    }
+	    
+	    .event-container {
+		width: 500px;
+	    }
+
+	    .event-container {
+		color: #fff;
+	    }
+
+	    .event-image {
+		float: left;
+		padding: 5px;
+	    }
+	</style>
 	<script type="text/javascript">
 	    jQuery(document).ready(function($) {
 		$('.likes-block .like')
@@ -16,94 +39,155 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-	
-	<div class="event-container" id="event_1">
-	    <h2>Первый игрок стоимостью свыше $100 млн</h2>
+	<div class="events">
 	    
-	    <img class="event-image" src="images/news/p1.png">
-	    
-	    <div class="summary">
-		<p>
-		    Переход португальца Криштиану Роналду из «Манчестер Юнайтед» в мадридский «Реал» стал не просто очередным приобретением новой команды суперзвезд Флорентино Переса. Его трансфер в июле 2009-го обошелся испанцам в 80 млн фунтов, то есть около $130 млн по тогдашнему курсу. Впервые сумма трансфера перешагнула отметку в $100 млн. Сумма отступных, прописанных в контракте Роналду, выглядит и вовсе фантастической – €1 млрд.
-		</p>
+	    <div class="event-container" id="event_1">
+		<h2>Первый игрок стоимостью свыше $100 млн</h2>
+
+		<img class="event-image" src="images/news/p1.png">
+
+		<div class="summary">
+		    <p>
+			Переход португальца Криштиану Роналду из «Манчестер Юнайтед» в мадридский «Реал» стал не просто очередным приобретением новой команды суперзвезд Флорентино Переса. Его трансфер в июле 2009-го обошелся испанцам в 80 млн фунтов, то есть около $130 млн по тогдашнему курсу. Впервые сумма трансфера перешагнула отметку в $100 млн. Сумма отступных, прописанных в контракте Роналду, выглядит и вовсе фантастической – €1 млрд.
+		    </p>
+		</div>
+
+		<div class="likes-block">
+		    <a href="/?hash=event_1" class="like l-fb">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_1" class="like l-vk">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_1" class="like l-tw">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+		</div>
 	    </div>
 
-	    <div class="likes-block">
-		<a href="/?hash=event_1" class="like l-fb">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
+	    <div class="event-container" id="event_2">
+		<h2>Первый футболист, забивший три гола в одном матче разным вратарям</h2>
 
-		<a href="/?hash=event_1" class="like l-vk">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
+		<img class="event-image" src="images/news/p2.png">
 
-		<a href="/?hash=event_1" class="like l-tw">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
-	    </div>
-	</div>
-	
-	<div class="event-container" id="event_2">
-	    <h2>Первый футболист, забивший три гола в одном матче разным вратарям</h2>
-	    
-	    <img class="event-image" src="images/news/p2.png">
-	    
-	    <div class="summary">
-		<p>
-		    Трудно представить себе более разнообразный хет-трик, чем тот, автором которого стал защитник «Вест Хэма» и сборной Англии Элвин Мартин. В апреле 1986 года «молотобойцы» играли с «Ньюкаслом» и разгромили соперника 8:1. В тот вечер основной голкипер «сорок» Мартин Томас играл с травмой и через боль, а второй из-за травмы вовсе не приехал.
-		</p>
-		<p>
-		    Первый свой гол Элвин забил самому Томасу, но к перерыву тот почувствовал себя совсем плохо. Заменить его пришлось полузащитнику Крису Хедворту, который неловко упал и повредил ключицу, не простояв в воротах и получаса. Правда, за это время Мартин успел забить и ему. Хедворта в рамке сменил очередной полевой игрок, нападающий Питер Бердсли, которого Мартин также не оставил без пропущенного гола.
-		</p>
-	    </div>
+		<div class="summary">
+		    <p>
+			Трудно представить себе более разнообразный хет-трик, чем тот, автором которого стал защитник «Вест Хэма» и сборной Англии Элвин Мартин. В апреле 1986 года «молотобойцы» играли с «Ньюкаслом» и разгромили соперника 8:1. В тот вечер основной голкипер «сорок» Мартин Томас играл с травмой и через боль, а второй из-за травмы вовсе не приехал.
+		    </p>
+		    <p>
+			Первый свой гол Элвин забил самому Томасу, но к перерыву тот почувствовал себя совсем плохо. Заменить его пришлось полузащитнику Крису Хедворту, который неловко упал и повредил ключицу, не простояв в воротах и получаса. Правда, за это время Мартин успел забить и ему. Хедворта в рамке сменил очередной полевой игрок, нападающий Питер Бердсли, которого Мартин также не оставил без пропущенного гола.
+		    </p>
+		</div>
 
-	    <div class="likes-block">
-		<a href="/?hash=event_2" class="like l-fb">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
+		<div class="likes-block">
+		    <a href="/?hash=event_2" class="like l-fb">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
 
-		<a href="/?hash=event_2" class="like l-vk">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
+		    <a href="/?hash=event_2" class="like l-vk">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
 
-		<a href="/?hash=event_2" class="like l-tw">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
-	    </div>
-	</div>
-	
-	<div class="event-container" id="event_3">
-	    <h2>Первый индивидуальный международный приз игроку </h2>
-	    
-	    <img class="event-image" src="images/news/p3.jpg">
-	    
-	    <div class="summary">
-		<p>
-		    По мере развития футбола в нем появлялось все больше игроков, заслуживавших отдельного внимания зрителей, а не только в рамках клуба. Журнал France Football взял на себя ответственность определить, кто же из них самый-самый. Первого победителя главный редактор журнала Габриэль Ано выявил обычным опросом коллег-журналистов. Им стал англичанин Стэнли Мэтьюз, безоговорочный лидер «Блэкпула» на тот момент, а впоследствии - первый и единственный игрок, удостоенный титула рыцаря до окончания карьеры.
-		</p>
+		    <a href="/?hash=event_2" class="like l-tw">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+		</div>
 	    </div>
 
-	    <div class="likes-block">
-		<a href="/?hash=event_3" class="like l-fb">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
+	    <div class="event-container" id="event_3">
+		<h2>Первый индивидуальный международный приз игроку</h2>
 
-		<a href="/?hash=event_3" class="like l-vk">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
+		<img class="event-image" src="images/news/p3.jpg">
 
-		<a href="/?hash=event_3" class="like l-tw">
-		    <i class="l-ico"></i>
-		    <span class="l-count"></span>
-		</a>
+		<div class="summary">
+		    <p>
+			По мере развития футбола в нем появлялось все больше игроков, заслуживавших отдельного внимания зрителей, а не только в рамках клуба. Журнал France Football взял на себя ответственность определить, кто же из них самый-самый. Первого победителя главный редактор журнала Габриэль Ано выявил обычным опросом коллег-журналистов. Им стал англичанин Стэнли Мэтьюз, безоговорочный лидер «Блэкпула» на тот момент, а впоследствии - первый и единственный игрок, удостоенный титула рыцаря до окончания карьеры.
+		    </p>
+		</div>
+
+		<div class="likes-block">
+		    <a href="/?hash=event_3" class="like l-fb">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_3" class="like l-vk">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_3" class="like l-tw">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+		</div>
+	    </div>
+	    
+	    <div class="event-container" id="event_4">
+		<h2>Первый иностранный тренер в сборной России</h2>
+
+		<img class="event-image" src="images/news/p4.png">
+
+		<div class="summary">
+		    <p>
+			Смирившись с мыслью, что пророка для сборной в своем отечестве не найти, и получив финансовую поддержку Романа Абрамовича, РФС впервые пригласил на пост главного тренера иностранца – Гуса Хиддинка. Голландец славился тем, что умеет слепить из сборной, засидевшейся в перспективных, настоящую грозу фаворитов. Отбор на Евро-2008 команда прошла ни шатко, ни валко, зато в финальном турнире неожиданно завоевала бронзовые медали.
+		    </p>
+		    <p>
+			Всенародное обожание Хиддинка сменились едва ли не таким же всенародным недовольством после непопадания на ЧМ-2010 от рук Словении. Под нарастающий гул разговоров о слишком большой зарплате, Гус съездил на подмогу «Челси», понял, что контракт с ним не продлят, и взялся за сборную Турции.
+		    </p>
+		</div>
+
+		<div class="likes-block">
+		    <a href="/?hash=event_4" class="like l-fb">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_4" class="like l-vk">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_4" class="like l-tw">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+		</div>
+	    </div>
+	    
+	    <div class="event-container" id="event_5">
+		<h2>Первый официальный матч, в котором было забито свыше 100 автоголов</h2>
+
+		<div class="summary">
+		    <p>
+			Обидевшись на предвзятое, по их мнению, судейство в чемпионате Мадагаскара, игроки клуба «Стад Олимпик Л'Эмирн» в последнем матче турнира забили 149 голов в собственные ворота в знак протеста. Неделей ранее их соперник в этом матче, клуб «Адема», стал чемпионом, опередив прошлогодних победителей из «Л'Эмирн» в стадии плей-офф. Поскольку последняя игра уже ничего не решала, футболисты «Л'Эмирна» использовали ее целиком, чтобы продемонстрировать свое возмущение, принявшись с первой же минуты забивать голы в собственные ворота. Правда, в итоге не обошлось без санкций со стороны федерации, которая не оценила ни представление, ни его подтекст.
+		    </p>
+		</div>
+
+		<div class="likes-block">
+		    <a href="/?hash=event_5" class="like l-fb">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_5" class="like l-vk">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+
+		    <a href="/?hash=event_5" class="like l-tw">
+			<i class="l-ico"></i>
+			<span class="l-count"></span>
+		    </a>
+		</div>
 	    </div>
 	</div>
     </body>
