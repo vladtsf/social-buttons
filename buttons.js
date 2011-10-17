@@ -116,7 +116,9 @@
 	    var href = this.$context.attr(this.config.keys.shareLinkParam);
 	    
 	    this.linkToShare = href;
-	    if(href.indexOf('http://') == -1 & href.indexOf('https://') == -1) {
+	    if(!href) {
+	    	href = w.location.origin + w.location.pathname;
+	    } else if(href.indexOf('http://') == -1 & href.indexOf('https://') == -1) {
 		this.linkToShare
 		    = (href[0] == '/' ? w.location.origin + href : w.location.origin + w.location.pathname + href);
 	    }
