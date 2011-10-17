@@ -13,9 +13,8 @@ jQuery-плагин для создания кастомных социальн�
 
 *JS*
 
-    $('.like')
-      .socialButton()
-      .scrollToButton('hash', 1000);
+    $('.like').socialButton();
+	$.scrollToButton('hash', 1000);
     
 *HTML*
 

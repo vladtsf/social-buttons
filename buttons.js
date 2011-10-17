@@ -362,24 +362,24 @@
 	return this;
     };
     
-    $.fn.scrollToButton = function(hashParam, duration) {	
-	if(!w.location.hash) {
-	    if(w.location.search) {
-		var currentHash = getParam(hashParam);
-		if(currentHash) {
-		    var $to = $('#' + currentHash);
-		    if($to.length > 0) {
-			$('html,body')
-			    .animate({
-				scrollTop: $to.offset().top,
-				scrollLeft: $to.offset().left
-			    }, duration || 1000);
-		    }
+    $.scrollToButton = function(hashParam, duration) {	
+		if(!w.location.hash) {
+				if(w.location.search) {
+				var currentHash = getParam(hashParam);
+				if(currentHash) {
+					var $to = $('#' + currentHash);
+					if($to.length > 0) {
+						$('html,body')
+							.animate({
+							scrollTop: $to.offset().top,
+							scrollLeft: $to.offset().left
+						}, duration || 1000);
+					}
+				}
+			}
 		}
-	    }
-	}
-	
-	return this;
+		
+		return this;
     };
         
 })(jQuery, window, document);
