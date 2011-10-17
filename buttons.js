@@ -134,7 +134,7 @@
 	    }
 	    
 	    if($summary.length > 0) {
-		this.summary = $summary.text() || d.title;
+		this.summary = $summary.text();
 	    }
 	    
 	    this.images = [];
@@ -268,7 +268,7 @@
 	getShareLink: function() { 
 	    return 'https://twitter.com/share'
 		    + '?url=' + encodeURIComponent(this.linkToShare)
-		    + (this.summary ? '&text=' + encodeURIComponent(this.title) : '');
+		    + (this.title ? '&text=' + encodeURIComponent(this.title) : '');
 	},
 	
 	/*@properties*/
