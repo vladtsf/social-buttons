@@ -39,6 +39,7 @@
 	},
 	
 	buttonDepth: 2,
+	alternativeImage: '',
 	
 	classes: {
 	    countVisibleClass: 'like-not-empty'
@@ -110,7 +111,7 @@
 		button = this;
 	    
 	    for(var i = 0; i < this.config.buttonDepth; i++) {
-		$parent = $parent.parent();
+			$parent = $parent.parent();
 	    }
 	    
 	    var href = this.$context.attr(this.config.keys.shareLinkParam);
@@ -138,10 +139,12 @@
 	    
 	    this.images = [];
 	    if($images.length > 0) {
-		$images.each(function(index, element) {
-		    button.images[index] = element.src;
-		});
-	    }
+			$images.each(function(index, element) {
+				button.images[index] = element.src;
+			});
+	    } else {
+			this.images[0] = this.config.alternativeImage ? this.config.alternativeImage : undefined;
+		}
 	},
 	
 	getPopupOptions: function() {
