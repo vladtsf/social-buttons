@@ -134,7 +134,7 @@
 	    }
 	    
 	    if($summary.length > 0) {
-		this.summary = $summary.text();
+		this.summary = $summary.text() || d.title;
 	    }
 	    
 	    this.images = [];
