@@ -40,6 +40,7 @@
 	
 	buttonDepth: 2,
 	alternativeImage: '',
+	forceAlternativeImage: false,
 	
 	classes: {
 	    countVisibleClass: 'like-not-empty'
@@ -138,7 +139,7 @@
 	    }
 	    
 	    this.images = [];
-	    if($images.length > 0) {
+	    if($images.length > 0 & !this.config.forceAlternativeImage) {
 			$images.each(function(index, element) {
 				button.images[index] = element.src;
 			});
