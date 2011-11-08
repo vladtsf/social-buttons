@@ -40,8 +40,10 @@
 	
 	buttonDepth: 2,
 	alternativeImage: '',
+	alternativeSummary: '',
 	forceAlternativeImage: false,
-	
+	forceAlternativeSummary: false,
+		
 	classes: {
 	    countVisibleClass: 'like-not-empty'
 	},
@@ -134,8 +136,10 @@
 		this.title = $title.text();
 	    }
 	    
-	    if($summary.length > 0) {
+	    if($summary.length > 0 & !this.config.forceAlternativeSummary) {
 		this.summary = $summary.text();
+	    } else {
+		this.summary = this.config.alternativeSummary ? this.config.alternativeSummary : undefined;
 	    }
 	    
 	    this.images = [];
