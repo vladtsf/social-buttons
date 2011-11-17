@@ -41,8 +41,10 @@
 	buttonDepth: 2,
 	alternativeImage: '',
 	alternativeSummary: '',
+	alternativeTitle: '',
 	forceAlternativeImage: false,
 	forceAlternativeSummary: false,
+	forceAlternativeTitle: false,
 		
 	classes: {
 	    countVisibleClass: 'like-not-empty'
@@ -67,7 +69,8 @@
     
     
     var Button = function() {};
-    
+	Button.lastIndex = 0;
+	
     Button.prototype = {
 	/*@methods*/
 	init: function($context, conf, index) {
@@ -132,9 +135,14 @@
 		$summary = $(this.config.selectors.shareSumary, $parent),
 		$images = $(this.config.selectors.shareImages, $parent);
 		
-	    if($title.length > 0) {
 		this.title = $title.text();
-	    }
+		if(this.config.forceAlternativeTitle) {
+			this.title = this.config.alternativeTitle;
+		} else if($title.length == 0 && this.config.alternativeTitle) {
+			this.title = this.config.alternativeTitle;
+		} else {
+			this.title = d.title;
+		}
 	    
 	    if($summary.length > 0 & !this.config.forceAlternativeSummary) {
 		this.summary = $summary.text();
@@ -354,12 +362,14 @@
 		conf = new ButtonConfiguration(config),
 		b = false;
 
+		Button.lastIndex++;
+		
 	    if($element.is(conf.selectors.facebookButton)) {
-		b = new FacebookButton($element, conf, index);
+		b = new FacebookButton($element, conf, Button.lastIndex);
 	    } else if($element.is(conf.selectors.twitterButton)) {
-		b = new TwitterButton($element, conf, index);
+		b = new TwitterButton($element, conf, Button.lastIndex);
 	    } else if($element.is(conf.selectors.vkontakteButton)) {
-		b = new VkontakteButton($element, conf, index);
+		b = new VkontakteButton($element, conf, Button.lastIndex);
 	    }
 
 	});
