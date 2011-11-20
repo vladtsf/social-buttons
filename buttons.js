@@ -87,7 +87,7 @@
 	    
 	    this.collectShareInfo();
 	    this.bindEvents();
-	    this.countLikes();
+	    this.ajaxRequest = this.countLikes();
 	},
 	
 	bindEvents: function() {
@@ -207,7 +207,8 @@
     
     
     var FacebookButton = function($context, conf, index) {
-	this.init($context, conf, index);
+		this.init($context, conf, index);
+		this.type = 'facebook';
     };
     FacebookButton.prototype = new Button;
     FacebookButton.prototype
@@ -219,7 +220,7 @@
 		serviceURI = this.getCountLink(this.linkToShare),
 		execContext = this;
 	    
-	    $.ajax({
+	    return $.ajax({
 		url: serviceURI,
 		dataType: 'jsonp',
 		success: function(data, status, jqXHR) {
@@ -259,7 +260,8 @@
     
     
     var TwitterButton = function($context, conf, index) {
-	this.init($context, conf, index);
+		this.init($context, conf, index);
+		this.type = 'twitter';
     };
     TwitterButton.prototype = new Button;
     TwitterButton.prototype
@@ -271,7 +273,7 @@
 		serviceURI = this.getCountLink(this.linkToShare),
 		execContext = this;
 	    
-	    $.ajax({
+	    return $.ajax({
 		url: serviceURI,
 		dataType: 'jsonp',
 		success: function(data, status, jqXHR) {
@@ -295,7 +297,8 @@
     
     
     var VkontakteButton = function($context, conf, index) {
-	this.init($context, conf, index);
+		this.init($context, conf, index);
+		this.type = 'vkontakte';
     };
     VkontakteButton.prototype = new Button;
     VkontakteButton.prototype
@@ -307,7 +310,7 @@
 	    
 	    w.socialButtonCountObjects[this.index] = this;
 	    
-	    $.ajax({
+	    return $.ajax({
 		url: serviceURI,
 		dataType: 'jsonp'
 	    });
@@ -356,29 +359,39 @@
 	};
     }
     
-    
-    
-    
-    $.fn.socialButton = function(config) {
-	this.each(function(index, element) {
-	    var
-		$element = $(element),
-		conf = new ButtonConfiguration(config),
-		b = false;
-
-		Button.lastIndex++;
-		
-	    if($element.is(conf.selectors.facebookButton)) {
-		b = new FacebookButton($element, conf, Button.lastIndex);
-	    } else if($element.is(conf.selectors.twitterButton)) {
-		b = new TwitterButton($element, conf, Button.lastIndex);
-	    } else if($element.is(conf.selectors.vkontakteButton)) {
-		b = new VkontakteButton($element, conf, Button.lastIndex);
-	    }
-
-	});
 	
-	return this;
+    $.fn.socialButton = function(config) {
+		this.each(function(index, element) {
+			setTimeout(function() {
+				var
+					$element = $(element),
+					conf = new ButtonConfiguration(config),
+					b = false;
+
+					Button.lastIndex++;
+					
+					if($element.is(conf.selectors.facebookButton)) {
+					b = new FacebookButton($element, conf, Button.lastIndex);
+					} else if($element.is(conf.selectors.twitterButton)) {
+					b = new TwitterButton($element, conf, Button.lastIndex);
+					} else if($element.is(conf.selectors.vkontakteButton)) {
+					b = new VkontakteButton($element, conf, Button.lastIndex);
+					}
+					
+					$
+						.when(b.ajaxRequest)
+						.then(
+							function() {
+								$element.trigger('socialButton.done', [b.type]);
+							}
+							,function() {
+								$element.trigger('socialButton.done', [b.type]);
+							}
+						);
+			}, 0);
+		});
+	
+		return this;
     };
     
     $.scrollToButton = function(hashParam, duration) {	
