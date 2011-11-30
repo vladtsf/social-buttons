@@ -124,14 +124,16 @@
 			$parent = $parent.parent();
 	    }
 	    
-	    var href = this.$context.attr(this.config.keys.shareLinkParam);
+	    var 
+	    	href = this.$context.attr(this.config.keys.shareLinkParam),
+	    	origin = w.location.origin || w.location.href.replace(w.location.pathname + w.location.search, '');
 	    
 	    this.linkToShare = href;
 	    if(!href) {
 	    	href = w.location.origin + w.location.pathname;
 	    } else if(href.indexOf('http://') == -1 & href.indexOf('https://') == -1) {
 		this.linkToShare
-		    = (href[0] == '/' ? w.location.origin + href : w.location.origin + w.location.pathname + href);
+		    = (href[0] == '/' ? origin + href : w.location.origin + w.location.pathname + href);
 	    }
 	    
 	    var 
