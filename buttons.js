@@ -22,7 +22,7 @@
     
     var ButtonConfiguration = function(params) {
     	if(params) {
-    		return $.extend(true, ButtonConfiguration.defaults, params)
+    		return $.extend(true, {}, ButtonConfiguration.defaults, params)
     	}
     	
 	return ButtonConfiguration.defaults;
