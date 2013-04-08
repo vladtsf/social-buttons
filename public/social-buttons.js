@@ -3821,11 +3821,147 @@ var requirejs, require, define;
     req(cfg);
 }(this));
 ;(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  define("social-buttons/adapters/facebook", ["social-buttons/button"], function() {
+    var Button, Facebook, _ref;
+
+    Button = require("social-buttons/button");
+    return Facebook = (function(_super) {
+      __extends(Facebook, _super);
+
+      function Facebook() {
+        _ref = Facebook.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      return Facebook;
+
+    })(Button);
+  });
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  define("social-buttons/adapters/twitter", ["social-buttons/button"], function() {
+    var Button, Twitter, _ref;
+
+    Button = require("social-buttons/button");
+    return Twitter = (function(_super) {
+      __extends(Twitter, _super);
+
+      function Twitter() {
+        _ref = Twitter.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      return Twitter;
+
+    })(Button);
+  });
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  define("social-buttons/adapters/vkontakte", ["social-buttons/button"], function() {
+    var Button, Vkontakte, _ref;
+
+    Button = require("social-buttons/button");
+    return Vkontakte = (function(_super) {
+      __extends(Vkontakte, _super);
+
+      function Vkontakte() {
+        _ref = Vkontakte.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      return Vkontakte;
+
+    })(Button);
+  });
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty;
+
   define("social-buttons/button", function() {
     var Button;
 
     return Button = (function() {
-      function Button(args) {}
+      function Button($el, passedOptions) {
+        this.$el = $el;
+        this.passedOptions = passedOptions;
+        this.cid = "button" + Button.lastIndex;
+        Button.lastIndex++;
+        this.el = this.$el.get();
+        this.delegateEvents();
+      }
+
+      Button.prototype.delegateEvents = function() {
+        var event, handler, selector, type, _ref,
+          _this = this;
+
+        _ref = jQuery.extend({}, Button.prototype.events, this.events);
+        for (event in _ref) {
+          if (!__hasProp.call(_ref, event)) continue;
+          handler = _ref[event];
+          type = event.split(/\s/)[0];
+          selector = event.split(/\s/).slice(1).join(" ");
+          if (typeof handler !== "function") {
+            if (this[handler] != null) {
+              handler = this[handler];
+            } else {
+              throw new Error("Method '" + handler + "' is not defined");
+            }
+          }
+          this.$el.on("" + event + ".button" + this.cid, selector, function() {
+            return handler.apply(_this, arguments);
+          });
+        }
+        return this;
+      };
+
+      Button.prototype.undelegateEvents = function() {
+        this.$el.off(".button" + this.cid);
+        return this;
+      };
+
+      Button.prototype.getUrl = function(type) {
+        if (type == null) {
+          type = "count";
+        }
+        if (type !== "count" && type !== "share") {
+          return null;
+        }
+        if (typeof this["" + type + "Url"] === "function") {
+          return String(this["" + type + "Url"]());
+        } else {
+          return String(this["" + type + "Url"]);
+        }
+      };
+
+      Button.prototype.countUrl = "";
+
+      Button.prototype.shareUrl = "";
+
+      Button.prototype.options = function() {
+        var attrs;
+
+        attrs = {
+          link: this.$el.prop("href")
+        };
+        return jQuery.extend(attrs, this.defaults, this.passedOptions, this.$el.data());
+      };
+
+      Button.prototype.events = {};
 
       Button.lastIndex = 0;
 
@@ -3837,17 +3973,34 @@ var requirejs, require, define;
 }).call(this);
 
 (function() {
-  define("social-buttons", ["social-buttons/button"], function() {
-    var Button;
+  define("social-buttons", ["social-buttons/adapters/facebook", "social-buttons/adapters/vkontakte", "social-buttons/adapters/twitter"], function() {
+    var SocialButtons;
 
-    Button = require("social-buttons/button");
+    SocialButtons = (function() {
+      function SocialButtons() {}
+
+      SocialButtons.adapters = {
+        facebook: require("social-buttons/adapters/facebook"),
+        vkontakte: require("social-buttons/adapters/vkontakte"),
+        twitter: require("social-buttons/adapters/twitter")
+      };
+
+      return SocialButtons;
+
+    })();
     return jQuery.prototype.socialButton = function(options) {
-      var element, idx, _i, _len;
+      var $el, element, idx, network, _i, _len;
 
+      if (options == null) {
+        options = {};
+      }
       for (idx = _i = 0, _len = this.length; _i < _len; idx = ++_i) {
         element = this[idx];
-        Button.lastIndex++;
-        console.log("aposkdkopsa");
+        $el = $(element);
+        network = $el.data("network");
+        if (SocialButtons.adapters[network] != null) {
+          new SocialButtons.adapters[network]($el, options);
+        }
       }
       return this;
     };
