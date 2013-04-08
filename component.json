@@ -1,0 +1,10 @@
+{
+  "name": "social-buttons",
+  "version": "0.0.0",
+  "main": ["./public/social-buttons.js", "./public/social-buttons.css"],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
