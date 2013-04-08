@@ -324,7 +324,7 @@
 		if(sum.length > 20) {
 			sum = sum.slice(1, 20).join(" ") + "...";
 		} else {
-			sum = summary;
+			sum = this.summary;
 		}
 
 	    return 'http://vk.com/share.php?'
