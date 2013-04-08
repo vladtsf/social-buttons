@@ -12,7 +12,7 @@ module.exports = function (grunt) {
         tasks: [ "coffee:dist" ]
       },
       stylus: {
-        files: [ "/assets/stylesheets/*.styl" ],
+        files: [ "assets/stylesheets/*.styl" ],
         tasks: [ "stylus:dist" ]
       }
     },
@@ -22,6 +22,30 @@ module.exports = function (grunt) {
         files: {
           "public/social-buttons.js": "assets/javascripts/*.coffee"
         }
+      }
+    },
+
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: [
+          "components/uri.js/src/URI.js",
+          "components/uri.js/srcIPv6.js",
+          "components/uri.js/srcSecondLevelDomains.js",
+          "components/uri.js/srcpunycode.js",
+          "components/uri.js/srcURITemplate.js",
+          "components/uri.js/srcjquery.URI.js",
+          "public/social-buttons.js"
+        ],
+        dest: "public/social-buttons.js"
+      },
+      jquery: {
+        src: [
+          "components/jquery/jquery.js"
+        ],
+        dest: "public/jquery.js"
       }
     },
 
@@ -60,13 +84,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask("build", [
     "coffee",
+    "concat",
     "stylus",
     "uglify"
   ]);
 
   grunt.registerTask("server", [
-    "connect:server:keepalive",
-    "watch"
+    "connect:server:keepalive"
   ]);
 
   grunt.registerTask("default", [
