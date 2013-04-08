@@ -10,6 +10,6 @@
   "dependencies": {
     "uri.js": "v1.10.1",
     "jquery": "1.9.1",
-    "requirejs": "*"
+    "requirejs": "2.1.5"
   }
 }

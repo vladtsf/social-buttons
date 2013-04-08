@@ -9,7 +9,7 @@ module.exports = function (grunt) {
     watch: {
       coffee: {
         files: [ "assets/javascripts/*.coffee" ],
-        tasks: [ "coffee:dist" ]
+        tasks: [ "coffee:dist", "concat" ]
       },
       stylus: {
         files: [ "assets/stylesheets/*.styl" ],
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     coffee: {
       dist: {
         files: {
-          "public/social-buttons.js": "assets/javascripts/*.coffee"
+          "public/social-buttons.js": [ "assets/javascripts/*.coffee" ]
         }
       }
     },
@@ -32,11 +32,7 @@ module.exports = function (grunt) {
       dist: {
         src: [
           "components/uri.js/src/URI.js",
-          "components/uri.js/srcIPv6.js",
-          "components/uri.js/srcSecondLevelDomains.js",
-          "components/uri.js/srcpunycode.js",
-          "components/uri.js/srcURITemplate.js",
-          "components/uri.js/srcjquery.URI.js",
+          "components/requirejs/require.js",
           "public/social-buttons.js"
         ],
         dest: "public/social-buttons.js"
