@@ -16,10 +16,29 @@ define "social-buttons/button", ->
       # increment buttons last cid
       Button.lastIndex++
 
+      @initEl()
+
+      @count()
+
       # naked root DOM object
       @el = @$el.get()
 
       @delegateEvents()
+
+    # Initializes root DOM element
+    #
+    initEl: ->
+      # add class to root element
+      @$el.addClass @className if @className?
+
+      # render content
+      @$el.html @template()
+
+      @
+
+    # Count shares/likes
+    count: ->
+      console.log @getUrl "count"
 
 
     # Uses jQuery.on to delegate events
@@ -47,6 +66,35 @@ define "social-buttons/button", ->
 
       @
 
+    # Used to determine url for share
+    #
+    getShareLink: ->
+      parts = URI.parse @$el.attr "href"
+      loc = new URI()
+
+      for own part, value of parts
+        unless loc[ part ]()
+          loc = loc[ part ] value
+
+      loc.toString()
+
+        # fragment: "12312"
+        # hostname: "ya.ru"
+        # password: "bar"
+        # path: "/foo/bar/"
+        # port: null
+        # protocol: "http"
+        # query: "baz=a&a=bas"
+        # username: "foo"
+
+      # href = @$el.attr "href"
+      # console.log href
+      # # share link
+      # link = if ( href = @$el.attr( "href" ) ).length is 0 then new URI( ) else new URI href
+      # # link.fragment {foo:"bar"}
+      # console.log  link.toString()
+      # console.log "foo", link.toString(), "aop[sdop"
+      # link.toString()
 
     # Used to determine url
     #
@@ -87,4 +135,11 @@ define "social-buttons/button", ->
 
     # Last used cid
     @lastIndex = 0
+
+    # Button markup
+    template: ->
+      $.trim """
+        <i class="b-share-button__icon"></i>
+        <span class="b-share-button__count js-share-button__count"></span>
+      """
 

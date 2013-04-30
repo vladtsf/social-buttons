@@ -3836,6 +3836,14 @@ var requirejs, require, define;
         return _ref;
       }
 
+      Facebook.prototype.className = "facebook";
+
+      Facebook.prototype.countUrl = function() {
+        return "https://api.facebook.com/method/fql.query?format=json&query=" + (encodeURIComponent("SELECT share_count FROM link_stat WHERE url=\"" + (this.getShareLink()) + "\""));
+      };
+
+      Facebook.prototype.shareUrl = "";
+
       return Facebook;
 
     })(Button);
@@ -3858,6 +3866,8 @@ var requirejs, require, define;
         _ref = Twitter.__super__.constructor.apply(this, arguments);
         return _ref;
       }
+
+      Twitter.prototype.className = "twitter";
 
       return Twitter;
 
@@ -3882,6 +3892,8 @@ var requirejs, require, define;
         return _ref;
       }
 
+      Vkontakte.prototype.className = "vkontakte";
+
       return Vkontakte;
 
     })(Button);
@@ -3901,9 +3913,23 @@ var requirejs, require, define;
         this.passedOptions = passedOptions;
         this.cid = "button" + Button.lastIndex;
         Button.lastIndex++;
+        this.initEl();
+        this.count();
         this.el = this.$el.get();
         this.delegateEvents();
       }
+
+      Button.prototype.initEl = function() {
+        if (this.className != null) {
+          this.$el.addClass(this.className);
+        }
+        this.$el.html(this.template());
+        return this;
+      };
+
+      Button.prototype.count = function() {
+        return console.log(this.getUrl("count"));
+      };
 
       Button.prototype.delegateEvents = function() {
         var event, handler, selector, type, _ref,
@@ -3932,6 +3958,21 @@ var requirejs, require, define;
       Button.prototype.undelegateEvents = function() {
         this.$el.off(".button" + this.cid);
         return this;
+      };
+
+      Button.prototype.getShareLink = function() {
+        var loc, part, parts, value;
+
+        parts = URI.parse(this.$el.attr("href"));
+        loc = new URI();
+        for (part in parts) {
+          if (!__hasProp.call(parts, part)) continue;
+          value = parts[part];
+          if (!loc[part]()) {
+            loc = loc[part](value);
+          }
+        }
+        return loc.toString();
       };
 
       Button.prototype.getUrl = function(type) {
@@ -3964,6 +4005,10 @@ var requirejs, require, define;
       Button.prototype.events = {};
 
       Button.lastIndex = 0;
+
+      Button.prototype.template = function() {
+        return $.trim("<i class=\"b-share-button__icon\"></i>\n<span class=\"b-share-button__count js-share-button__count\"></span>");
+      };
 
       return Button;
 

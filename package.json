@@ -2,6 +2,9 @@
   "name": "social-buttons",
   "version": "0.0.0",
   "dependencies": {},
+  "scripts": {
+    "start": "grunt server"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-coffee": "~0.6.5",
